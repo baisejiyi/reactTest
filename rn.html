@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>document</title>
+	
+	<style type="text/css">
+		.toggle{
+			margin-right: 10px;
+		}
+		.test{
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<script type="text/jsx">
+	var container=document.getElementById("container");
+	
+	var ToggleComponent = React.createClass({
+		handleClick:function(event){
+			var tips=React.findDOMNode(this.refs.tip);
+			if(tips.style.display==="none"){
+				tips.style.display="inline";
+			}else{
+				tips.style.display="none";
+			}
+			event.stopPropagation();
+			event.preventDefault();
+		},
+		render : function(){
+			return(
+				<div className="test">
+					 <button className="toggle" onClick={this.handleClick}>显示|隐藏</button>
+					<span ref="tip">测试结果</span>
+				</div>
+			);
+		},
+	});
+
+	var InputComponent = React.createClass({
+
+		getInitialState:function(){
+			return{
+				inputContext:''
+			}
+			
+		},
+		handleChange:function(event){
+			this.setState({
+				inputContext:event.target.value
+			});
+			event.stopPropagation();
+			event.preventDefault();
+		},
+		render:function(){
+			return(
+				<div>
+					<input type="text" onChange={this.handleChange}/>
+					<span>{this.state.inputContext}</span>
+				</div>
+			);
+		}
+
+	});
+	React.render(
+		<div>
+			<ToggleComponent/>
+			<InputComponent/>
+		</div>,
+		container);
+		console.log(container);
+		console.log(container.innerHTML)
+</script>
+
+</html>
